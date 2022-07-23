@@ -1,6 +1,6 @@
 from django.contrib import admin
 # <HINT> Import any new Models here
-from .models import Course, Lesson, Instructor, Learner, Question, Choice
+from .models import Course, Lesson, Instructor, Learner, Question, Choice, Submission
 
 # <HINT> Register QuestionInline and ChoiceInline classes here
 
@@ -28,6 +28,9 @@ class CourseAdmin(admin.ModelAdmin):
     list_filter = ['pub_date']
     search_fields = ['name', 'description']
 
+class SubmissionAdmin(admin.ModelAdmin):
+    inlines = [LessonInline, QuestionInline]
+    list_display = ('enrollment', 'choices')
 
 class LessonAdmin(admin.ModelAdmin):
     list_display = ['course', 'title']
@@ -41,3 +44,5 @@ admin.site.register(Instructor)
 admin.site.register(Learner)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
+admin.site.register(Submission)
+
